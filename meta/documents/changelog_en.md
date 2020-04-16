@@ -1,5 +1,205 @@
 # Release Notes for Ceres
 
+## v5.0.0 (2020-04-14) <a href="https://github.com/plentymarkets/plugin-ceres/compare/4.6.0...5.0.0" target="_blank" rel="noopener"><b>Overview of all changes</b></a>
+
+### TODO
+
+- Themes and plugins that were compatible with former Ceres versions may need to be updated in order to ensure continued compatibility. You can find additional information on updating themes and plugins in our <a href="https://developers.plentymarkets.com/dev-doc/ceres-5" target="_blank" rel="noopener"><b>developer documentation</b>.
+- Due to changes to ShopBuilder widgets, it is necessary to regenerate the ShopBuilder contents via the **Regenerate contents** button in the **CMS » ShopBuilder** menu.
+- Users who still used the category **Homepage (deprecated) (Ceres)** in the ShopBuilder need to create and link a new homepage category. You should create a plugin set copy of the current state prior to Ceres version 5.0 so that you can duplicate your homepage contents from this plugin set copy to the newly created homepage category in the Ceres 5 plugin set. Otherwise, you will not be able to access your homepage contents without downgrading Ceres to a version below 5.0.
+- In order to use the "Did you mean...?" search, users should create and link a new search results page via the search results ShopBuilder preset.
+- The default white background has been removed from the following contents: **Shopping cart**, **Checkout**, **Contact page**, **My Account**, **Order confirmation**, **Returns page**, and **Wishlist**. Users should integrate a white background image widget in these contents in order to replicate the former appearance.
+
+### Added
+
+- This version supports <a href="https://knowledge.plentymarkets.com/en/slp/artikel/anwendungsfaelle/multipacks-pakete-sets#3000" target="_blank">Item sets</a>. We added the **Components for item sets** widget to the ShopBuilder. It serves to edit item set contents via the ShopBuilder. This feature is currently in beta.
+- This version supports <a href="https://knowledge.plentymarkets.com/en/slp/auftraege/gutscheine">Gift cards</a>. Gift cards can be personalised and downloaded as a PDF file on the order confirmation page.
+- We added the three search widgets **Search suggestions**, **Search results: Categories**, and **Search results: Items** to the ShopBuilder. These can be placed in the search area of the top bar widget in the header.
+- You can now click the search icon in the top bar widget to open a dropzone in which you can place widgets.
+- An additional search is now carried out for misspelled search terms. The search results page now provides an alternative search term in the "Did you mean...?" message.
+- We added the two template containers `SingleItem.AfterScriptsLoaded` and `SingleItem.Styles`. These can be used to only integrate scripts and stylesheets on the single item view.
+- We added the two template containers `Checkout.AfterScriptsLoaded` and `Checkout.Styles`. These can be used to only integrate scripts and stylesheets on checkout, shopping cart, My Account, order confirmation, and returns pages.
+- We added a button to the order history widget via which users can open the order confirmation of an order. This makes it possible to submit a rating for items of an order from the My Account area.
+- The microdata field "url" is now filled in on the single item view.
+- The sorting of variations on item tiles in item lists and the category view can now be configured via the Ceres assistant.
+- The entry **categoryItemFromPrice** has been added to the multilingualism interface. It is used to display a "from" before the price in item lists if the cheapest variation is displayed on the item tile and the item has more than one purchasable variation.
+
+### Changed
+
+- In order to improve performance, the online store's JavaScript and CSS have been split into separate files for the checkout and the item/category pages. 
+- In order to optimise the loading times of the variation selection, the variation selection data is loaded at a later stage if the number of variations is exceedingly large.
+- The performance of the sticky container widget has been improved.
+- The Moment.js library has been replaced with Day.js in order to decrease file size.
+- We updated the Bootstrap version to 4.4.1.
+- The design of the online store has been adjusted to the Bootstrap standard in order to reduce the necessity of customised style definitions.
+- We removed or replaced obsolete SCSS variables. You can find a complete list of the changes in [our developer documentation](https://developers.plentymarkets.com/dev-doc/ceres-5#scss).
+- The helper class "widget-fw" no longer affects widgets that are placed within other widgets.
+- The behaviour of the canonical tag and the robots information on category and search result pages has been revised.
+- If a user selects order characteristics for a variation and then changes variations, the order characteristics are now automatically selected when the user returns to the original variation. This does not apply to order characteristics of the type file.
+- Default presets for online store pages whose background had been styled white via CSS now integrate the background image widget in order to achieve the same effect.
+- Variation properties are now output on the order confirmation page.
+- The settings **Show image carousel dots in category item lists** and **Show image carousel navigation in category item lists** have been marked as deprecated because they can be carried out via the Ceres assistant. In addition, these settings in the assistant have been extended to cover both the category view and item lists.
+- The filter toolbar is now visible again after a user clicks on a filter and the page is reloaded.
+- The top bar widget setting **Display item images in search suggestions** has been moved to the settings of the new widget **Search results: Items**.
+- The top bar widget setting **Search: Forward to single item view** has been removed.
+- Country flags and icons in the online store are now loaded at a later stage in order to improve performance.
+- The component contact-map has been replaced with the google-maps component.
+- The directive `v-waiting-animation` has been marked as deprecated. The new icon component `icon` has been added as an alternative.
+- All contents of the ShopBuilder category **Homepage (deprecated) (Ceres)** have been set to inactive.
+- The input field **Name of the online store** has been removed from the Ceres assistant.
+- Properties have been removed from the result fields for item lists and category pages.
+
+### Fixed
+
+- Images in the background image widget were automatically repeated, even if the option **Repeat image** was inactive. This has been fixed.
+- In the step-by-step navigation, long category names were partially displayed outside the widget's boundaries, thereby interfering with the layout. Long category names are now shortened accordingly.
+- Order documents of the type **Return slip** are now displayed in the order confirmation and the order history in the My Account area and can be downloaded there.
+- Under certain circumstances, item images in the image carousel and image box widgets were not properly loaded. This has been fixed.
+- Due to an error, structured data was not output correctly. This has been fixed.
+- The option **Increase font size** of the background image widget affected all widgets that included text and were placed in a background image widget. The option has now been limited to the text and code widget.
+- The sticky container widget could cause display errors when users changed the size of the browser window. This has been fixed.
+- The navigation dots of the image carousel widget did not work as intended on the single item view. This has been fixed.
+- Due to an error, certain browsers automatically filled in the invisible input field that serves to deflect bots. This has been fixed.
+- Addresses from non-Ceres sources are now converted to ISO format when editing the address.
+- The navigation arrows of the image carousel did not work as intended in item lists and the category view. This has been fixed.
+- The item availability was displayed on the returns page, even if no option was activated for the **Show item information** setting of the returns widget. This has been fixed.
+- Bold text was not displayed correctly in image box widgets. This has been fixed.
+- If an item has more than 2 purchasable variations, the item tile in item lists now contains the arrow icon instead of the shopping cart icon. Clicking the icon redirects users to the single item view.
+- Under certain circumstances, the search results page was displayed incorrectly if the search results stemmed from an external search provider. This behaviour has been fixed.
+- Some combinations of background image widget, grid widgets, and the helper class **widget-fw** could lead to display errors. This behaviour has been fixed.
+- Under certain conditions, the background image widget overlapped and thereby blocked the content of nested widgets. This has been fixed.
+- Under certain circumstances, item lists of the type **Last seen** were displayed incorrectly. This has been fixed.
+
+## v4.6.0 (2020-02-17) <a href="https://github.com/plentymarkets/plugin-ceres/compare/4.5.2...4.6.0" target="_blank" rel="noopener"><b>Overview of all changes</b></a>
+
+### TODO
+
+- Due to changes to ShopBuilder widgets, it is necessary to re-generate the ShopBuilder contents for single item views via the **Regenerate contents** button in the **CMS » ShopBuilder** menu.
+- Google reCAPTCHA is now only carried out after the online store user accepts the corresponding cookies. Forms that are subject to reCAPTCHA, such as the contact form or the customer registration, can therefore only be sent after the user's consent.
+
+### Added
+
+- We added the Your reference widget to the ShopBuilder.
+- We added the step-by-step navigation widget to the ShopBuilder.
+- We added settings for custom CSS classes, paddings, and margins to the Google Maps widget.
+- The assistant now contains a setting via which you can activate the VAT number verification for the checkout, the creation of new addresses and changes to existing addresses.
+
+### Changed
+
+- Filters of the type category are now also available in the category view.
+- The navigation tree widget is no longer displayed on display sizes on which the mobile navigation is used. A corresponding notification is displayed in the ShopBuilder.
+- Properties are no longer output in the data set for item lists in order to reduce the quantity of data.
+- The category image is now loaded via lazy load when it enters the visible area. This improves the performance.
+- The image of the background image widget is now loaded via lazy load.
+- The transmitted data for items with order characteristics has been optimised.
+- E-mails are now sent in the language selected in the online store.
+- The setting for entering the Google Maps API key has been moved from the Google Maps widget to the Ceres configuration. The checkbox for Google Maps cookies in the cookie bar will only be displayed if the key is stored there.
+- The text that links to information pages of payment providers has been added to the multilingual language packages. The corresponding key is "checkoutPaymentMethodDetailsLinks".
+- The name of the item image is now used as the title in the widgets image box, item image and image carousel.
+- The type attribute of `<script2>` tags is no longer defaulted to "text/javascript".
+
+### Fixed
+
+- Due to an error, the VAT number was always displayed in the address selection widget. This has been fixed.
+- script2 and style2 tags are no longer displayed as clear text before being translated into native tags.
+- Base prices are now correctly output in the JSON for Schema.org.
+- Preview images of the image carousel were not displayed in the Internet Explorer. This has been fixed.
+- Child elements of the navigation tree widget were not displayed in the Internet Explorer. This has been fixed.
+- Under certain circumstances, a horizontal scrollbar was displayed in the ShopBuilder. This has been fixed.
+- Due to an error, online store visitors were unable to expand the subcategories of the current category in the navigation tree widget. This has been fixed.
+- ShopBuilder contents for the returns page were not displayed in the online store. This has been fixed.
+- Invalid elements are now removed from customised titles of the image box and image carousel widgets in order to prevent inline editing errors.
+- Images in the image carousel widget were reloaded whenever a cursor moved over a button. This has been fixed.
+- Tabs in the tab widget now become visible at a later time if their content becomes visible through user interaction or is delayed for other reasons.
+- Widgets for the contact page did not recognise the input field for custom CSS classes. This has been fixed.
+- Translations for store specials are now output correctly.
+- We improved the usability of the toolbar widget of the ShopBuilder.
+- The configured status for returns is now checked before the creation of the return. In case of an error, the default status for returns (9.0) is used instead.
+- Registered customers can now create returns via the order confirmation link without having to log in.
+- The conversion of special characters was not working properly for the category field in the structured data of an item. This has been fixed.
+- The numerical value was missing from the field content of the additional details tab in the tab widget. This has been fixed.
+- Due to an error, the Google reCAPTCHA was loaded on every page. This has been fixed.
+- The checkbox for Packstation/post office was not displayed in the my account area. This has been fixed.
+- The timer of the live shopping widget could not display a running time of more than 30 days. This has been fixed.
+- The widgets item per page and item sorting could only be placed in the toolbar widget. This has been fixed.
+- The settings for paddings did not affect list elements of the navigation tree widget that were loaded at a later time. This has been fixed.
+- Due to an error, the backlink of the link widget was passed on to the registration and login pages. This has been fixed. 
+- The navigation bar no longer displays categories if no category type has been activated in the Ceres setting **Type of categories rendered in the navigation**.
+- The potentialAction element in the structured data is now only output on the homepage.
+- Categories whose URL name is already used for system-internal URLs (such as /basket) can now be accessed as long as an alternative category has been linked for these system-internal URLs in the ShopBuilder.
+- The setting **Always append trailing slashes** is now effective for pages that are accessed via the **More** button in the nevigation bar.
+- Orders of the type warranty are now displayed and can be returned in the my account area.
+- If the automatic language recognition of browsers is used, pages could be displayed in a different language than specified in the URL slug. In such cases, the pages are no longer written into the ShopBooster cache.
+
+## v4.5.2 (2020-01-24) <a href="https://github.com/plentymarkets/plugin-ceres/compare/4.5.1...4.5.2" target="_blank" rel="noopener"><b>Overview of all changes</b></a>
+
+### TODO
+
+- Due to changes to the order data widget, you need to regenerate ShopBuilder contents of the type order confirmation via the **Regenerate contents** button in the **CMS » ShopBuilder** menu.
+
+### Fixed
+
+- Payment information and the payment button are no longer displayed in the order confirmation of delivery orders and other order types that do not require payment.
+
+## v4.5.1 (2020-01-06) <a href="https://github.com/plentymarkets/plugin-ceres/compare/4.5.0...4.5.1" target="_blank" rel="noopener"><b>Overview of all changes</b></a>
+
+### Fixed
+
+- Due to an error, changing a variation did not update its variation properties. This has been fixed.
+- Due to an error, changing a variation did not update its item images. This has been fixed.
+
+## v4.5.0 (2019-12-19) <a href="https://github.com/plentymarkets/plugin-ceres/compare/4.4.2...4.5.0" target="_blank" rel="noopener"><b>Overview of all changes</b></a>
+
+### TODO
+
+- In order to enable the redirection from tags to items linked with the tag, the route **Tags** has to be activated in the **Routing » Enable routes** menu of the **IO** configuration.
+- Since tags are now displayed in the single item view, you need to review your tag labels and tag links in the **Setup » Settings » Tags** menu in order to avoid displaying unwanted content. 
+- If you want to include "From" prices in the single item view, the translation key "dynamicVariationPrice" has to be filled out in the **CMS » Multilingualism** menu.
+- The item rating filter has been moved to the plugin **Customer feedback**. If you want to display item rating filters, you need to update the plugin to the current version 3.3
+
+### Added
+
+- In the ItemListModule, facet data is now written into the Vue store via the new function `addFacets()` instead of the function `setFacets()`. This serves to prevent duplicate data. The function `setFacets()` has been marked as `deprecated`.
+- The Ceres assistant now includes settings for the variation selection with which the "Please select" option can be activated and preselected.
+- "From" prices can now be displayed in the single item view if the option "Please select" is active for the variation selection. The translation key "dynamicVariationPrice" has to be filled out in the **CMS » Multilingualism** menu.
+- The following widgets have been added to the ShopBuilder for creating category views: Pagination, Items per page, Tool bar, Item grid, Item sorting, Availability filter, Filter for attributes, properties and characteristics, Price filter, Category filter, Manufacturer filter, Navigation tree, Background image.
+- We added the "Tags" widget to the ShopBuilder, with which tags can be displayed in the single item view. Tags are set up in the **Setup » Settings » Tags** menu. 
+- The number of columns in the item grid widget can now be set in correspondence to the viewport. We would like to thank @daniel-mannheimer for the contribution.
+- Contents of the type **item category** can now be used for the category view.
+- We added the presets for the search results page and the item category view.
+- We added helper classes in order to more easily define widget settings.
+
+### Changed 
+
+- The settings "Position of the pagination", "Always show first page" and "Always show last page" have been moved to the ShopBuilder and have been marked as `deprecated`.
+- The option "Please select" in the variation selection has been changed to "No selection" in order to clarify that the selected variation can be purchased, even if no attribute has been selected. 
+- Images of items in the shopping cart and the single item view are now loaded via lazy load as soon as they become visible in order to improve performance.
+- Icons of shipping profiles are now displayed in the checkout if the plugin of the corresponding shipping method provides an icon.
+- Contents of the code widget are now output as clear text in the secure mode in order to ensure that the contents can still be edited, even in case of faulty input.
+- The aspect ratio of the item image widget no longer changes in different column widths.
+- Layout containers which can no longer be output with the ShopBuilder have been marked as `deprecated`.
+- We added a setting to the image box and image box carousel widgets with which lazy loading can be activated, thereby only loading visible content. This improves the performance of the online store.
+- The sorting of facets has been moved from Ceres to IO. The facets are returned from the server in a sorted fashion.
+- The Vue component `contact-map` has been marked as `deprecated`.
+- The Google Maps widget now logs errors.
+- The following settings for the category view have been marked as `deprecated`: "Show category decription above item list", "Show category decription below item list", and "Show categories as filter options for search results".
+
+### Fixed
+
+- Javascript errors occurred if an item was added to the shopping cart a second time. This behaviour has been fixed.
+- The layout containers "Shopping cart: Before basket totals" and "Shopping cart: After basket totals" are now output correctly in the totals widget unless it is placed in the checkout.
+- In the Microsoft Edge browser, adding items to the shopping cart led to a Javascript error due to which the "AddToBasket" overlay was no longer displayed. This has been fixed.
+- The layout container "ImageCarouselOverride" was not displayed correctly in the item image widget. This has been fixed.
+- Overwriting styles in the code widget with a theme could lead to unreadable syntax. This behaviour has been fixed.
+- When setting up the online store with the assistant more than once, the value for the option concerning item bundles was not displayed correctly. This has been fixed.
+- Due to an error, the wrong data was transmitted to Google Analytics under certain circumstances. This behaviour has been fixed.
+- Due to an error, phone number and VAT ID could not be removed from an address. This has been fixed.
+- Due to an error, store specials were not displayed for live shopping items. This has been fixed. We would like to thank @Lauflust for the contribution.
+- When opening a modal in Safari on mobile devices, the page scrolled back to the top. This has been fixed.
+- If a user clicked the cookie bar's "Accept all" button a second time before refreshing the page, the cookie bar could no longer be closed. This behaviour has been fixed.
+- Entering the e-mail address a second time was impossible for guest accounts if an e-mail address had already been entered. This has been fixed.
+- Due to a CSS error, error notifications in the shopping cart were invisible. This has been fixed.
+
 ## v4.4.2 (2019-11-22) <a href="https://github.com/plentymarkets/plugin-ceres/compare/4.4.1...4.4.2" target="_blank" rel="noopener"><b>Overview of all changes</b></a>
 
 ### Fixed

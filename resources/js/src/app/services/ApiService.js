@@ -2,7 +2,6 @@ import { normalizeUrl } from "../helper/url";
 import { isDefined, isNullOrUndefined } from "../helper/utils";
 
 const NotificationService = require("./NotificationService");
-const WaitScreenService   = require("./WaitScreenService");
 
 const _eventListeners = {};
 
@@ -137,13 +136,8 @@ export function send(url, data = {}, config)
     config.keepOriginalResponse = !!config.keepOriginalResponse;
     config.headers = config.headers || { "Accept-Language": App.language };
 
-    data.templateEvent = App.templateEvent;
+    data.templateType = App.templateType;
     config.data = data;
-
-    if (!config.doInBackground)
-    {
-        WaitScreenService.showWaitScreen();
-    }
 
     const request = $.ajax(url, config)
         .done(function(response)
@@ -162,13 +156,6 @@ export function send(url, data = {}, config)
             const response = jqXHR.responseText ? $.parseJSON(jqXHR.responseText) : {};
 
             deferred.reject(response, jqXHR.status);
-        })
-        .always(function()
-        {
-            if (!config.doInBackground)
-            {
-                WaitScreenService.hideWaitScreen();
-            }
         });
 
     deferred.abort = request.abort;

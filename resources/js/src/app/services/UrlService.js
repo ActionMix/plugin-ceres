@@ -11,6 +11,7 @@ function _parseUrlParam(paramKey, paramValue, result)
     }
 
     const regex = /(^([^\[]+)|\[([^\]]*)\])/gm;
+
     let match;
     const keyList = [];
 
@@ -80,7 +81,9 @@ export function getUrlParams(urlParams)
     }
 
     const regex = /[\\?&]([^=&#]+)=([^&#]*)/gm;
+
     let result = {};
+
     let match;
 
     while ((match = regex.exec(urlParams)) !== null)
@@ -208,9 +211,9 @@ export function encodeParams(params, prefix)
     return prefix + "=" + encodeURIComponent(params);
 }
 
-export function setUrlByItem(itemData)
+export function setUrlByItem(itemData, keepVariationId)
 {
-    const url = vueApp.$options.filters.itemURL(itemData);
+    const url = vueApp.$options.filters.itemURL(itemData, keepVariationId);
     const title = document.getElementsByTagName("title")[0].innerHTML;
 
     window.history.replaceState({}, title, url);

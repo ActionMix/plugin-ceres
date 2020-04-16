@@ -26,18 +26,6 @@ class ItemViewConfig
         "itemDecimal2" => "2"
     ];
 
-    private static $loadingAnimationTypes = [
-        "loadingAnimationBars" => "bars",
-        "loadingAnimationSpinner" => "spinner"
-    ];
-
-    private static $itemVariationTypes = [
-        "itemVariationTypeAll"      => "all",
-        "itemVariationTypeMain"     => "main",
-        "itemVariationTypeChild"    => "child",
-        "itemVariationTypeCombined" => "combined",
-    ];
-
     private static $categoryDescriptionPositions = [
         "categoryDescriptionNone" => "none",
         "categoryDescription1"    => "description1",
@@ -86,22 +74,6 @@ class ItemViewConfig
     public static function getItemDecimals()
     {
         return self::$itemDecimals;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getLoadingAnimationTypes()
-    {
-        return self::$loadingAnimationTypes;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getItemVariationTypes()
-    {
-        return self::$itemVariationTypes;
     }
 
     /**

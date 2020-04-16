@@ -1,6 +1,13 @@
 @import "mixins/mixins";
 
+@import "Category/filter-base-widget";
+@import "Category/item-grid-widget";
+@import "Category/price-filter-widget";
+@import "Category/selected-filter-widget";
+@import "Category/step-by-step-navigation-widget";
+@import "Category/toolbar-widget";
 @import "Checkout/provider-select-widget";
+@import "Common/background-widget";
 @import "Common/faq-widget";
 @import "Common/image-box-widget";
 @import "Common/image-carousel-widget";
@@ -13,6 +20,9 @@
 @import "Common/title-bar-widget";
 @import "Grid/grid-widget";
 @import "Grid/tab-widget";
+@import "Header/breadcrumb-widget";
+@import "Header/navigation-widget";
+@import "Header/top-bar-widget";
 @import "Helper/base-widget";
 @import "Helper/widget-appearance";
 @import "Helper/widget-placeholder";

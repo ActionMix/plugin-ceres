@@ -12,6 +12,7 @@
 {% set spacingClasses  = WidgetHelper.getSpacingClasses(spacingSettings, spacingSettings.customPadding.mobile, spacingSettings.customMargin.mobile) %}
 {% set formId          = uid() %}
 {% set buttonSize      = widget.settings.buttonSize.mobile | default("") %}
+{% set customClass     = widget.settings.customClass.mobile %}
 
 <div class="widget widget-contact-form
     {% if spacingClasses | length > 0 %} {{ spacingClasses }}{% endif %}
@@ -50,6 +51,8 @@
             {{ Twig.if("ceresConfig.global.googleRecaptchaApiKey | trim is not empty") }}
                 <recaptcha></recaptcha>
             {{ Twig.endif() }}
+
+            <input class="honey" type="text" name="username" autocomplete="off" tabindex="-1">
 
             <div class="col-12 text-right">
                 <button type="submit" class="btn btn-{{ appearance }} {{ buttonSize }}">

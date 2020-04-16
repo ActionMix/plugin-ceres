@@ -1,8 +1,6 @@
 {% import "Ceres::Widgets.Helper.TwigBuilder" as Twig %}
 {% import "Ceres::Widgets.Helper.WidgetHelper" as WidgetHelper %}
 
-{{ Twig.component("Ceres::Customer.Components.Login") }}
-
 {% set customClass = widget.settings.customClass.mobile %}
 {% set spacingSettings = widget.settings.spacing %}
 {% set inlineSpacings = WidgetHelper.getInlineSpacings(spacingSettings, spacingSettings.customPadding.mobile, spacingSettings.customMargin.mobile) %}
@@ -12,14 +10,17 @@
 
 {{ Twig.set("backlink", "request.get('backlink')") }}
 
-{{ Twig.if("not services.authentication.isLoggedIn() or #{ isPreview | json_encode }") }}
+{{ Twig.if("not services.customer.getContactId() > 0 or #{ isPreview | json_encode }") }}
     <div class="widget widget-login widget-{{ appearance }}{% if customClass | length > 0 %} {{ customClass }}{% endif %}{% if spacingClasses | length > 0 %} {{ spacingClasses }}{% endif %}"
         {% if inlineSpacings | length > 0 %} style="{{ inlineSpacings }}"{% endif %}>
             <div class="widget-inner">
-                <login 
+                <login
                     backlink="{{ Twig.print("backlink | url_encode") }}"
                     :has-to-forward="true"
                     :button-size="{{ buttonSize | json_encode }}">
+                        <template #extend-overlay-buttons>
+                            {{ LayoutContainer.show("Ceres::LoginOverlay.ExtendOverlayButtons") }}
+                        </template>
                 </login>
             </div>
     </div>

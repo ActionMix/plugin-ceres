@@ -4,7 +4,7 @@ import { mapState } from "vuex";
 import { isDefined } from "../../helper/utils";
 const NotificationService = require("../../services/NotificationService");
 
-Vue.component("shipping-profile-select", {
+export default Vue.component("shipping-profile-select", {
 
     props:
     {
@@ -87,7 +87,7 @@ Vue.component("shipping-profile-select", {
         {
             let translationKey = "";
 
-            let params = {};
+            const params = {};
 
             for (let i = 0; i < this.shippingProfileList.length; i++)
             {

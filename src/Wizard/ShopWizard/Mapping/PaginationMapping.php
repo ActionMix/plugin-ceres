@@ -27,15 +27,9 @@ class PaginationMapping
             "global"   => false,
             "optional" => true,
         ],
-        "paginationStep_columnsPerPage" => [
-            "field"    => "pagination.columnsPerPage",
+        "paginationStep_itemsPerPage" => [
+            "field"    => "pagination.itemsPerPage",
             "type"     => "string",
-            "global"   => false,
-            "optional" => true,
-        ],
-        "paginationStep_rowsPerPage" => [
-            "field"    => "pagination.rowsPerPage",
-            "type"     => "concatenated",
             "global"   => false,
             "optional" => true,
         ],
@@ -69,8 +63,32 @@ class PaginationMapping
             "global"   => false,
             "optional" => true,
         ],
+        "pagination_sortingMonthlySales" => [
+            "field"    => "itemSortByMonthlySales",
+            "type"     => "integer",
+            "global"   => true,
+            "optional" => true,
+        ],
+        "pagination_sortingDynamicInherit" => [
+            "field"    => "sorting.dynamicInherit",
+            "type"     => "concatenated",
+            "global"   => false,
+            "optional" => true,
+        ],
+        "pagination_sortingDynamicPrio1" => [
+            "field"    => "sorting.dynamicPrio1",
+            "type"     => "string",
+            "global"   => false,
+            "optional" => false,
+        ],
+        "pagination_sortingDynamicPrio2" => [
+            "field"    => "sorting.dynamicPrio2",
+            "type"     => "string",
+            "global"   => false,
+            "optional" => true,
+        ],
     ];
-    
+
     /**
      * @return array
      */

@@ -8,18 +8,16 @@
             "label":            "Widget.containerFooter",
             "name":             "Ceres::Footer"
         },
-        "content": [
-            {
-                "label":        "Widget.containerHomepage",
-                "name":         "Ceres::Homepage"
-            }
-        ]
+        "content": []
     },
     "allowedTypes": {
         "header":       ["header", "static", "structure", "default"],
         "footer":       ["footer", "static", "structure", "default"],
         "content":      ["static", "structure", "default"],
-        "singleitem":   ["static", "structure", "default", "item"],
+        "singleitem":   ["static", "structure", "default", "item", "itemcontent", "singleitem", "setcomponent"],
+        "itemset":      ["static", "structure", "default", "item", "itemcontent", "setitem"],
+        "categoryitem": ["static", "structure", "default", "categoryitem"],
+        "itemsearch":   ["static", "structure", "default", "categoryitem"],
         "checkout":     ["static", "structure", "default", "checkout", "customer"],
         "myaccount":    ["static", "structure", "default", "myaccount", "customer"]
     },
@@ -118,16 +116,34 @@
               "presetClass": "Ceres\\Widgets\\Presets\\DefaultMyAccountPreset"
             }
         ],
-        "singleitem":
-        [
+        "categoryitem": [
+            {
+                "label": "Widget.presetItemCategoryDefault",
+                "presetClass": "Ceres\\Widgets\\Presets\\ItemCategoryPreset"
+            }
+        ],
+        "itemsearch": [
+            {
+              "label": "Widget.presetItemSearchDefault",
+              "presetClass": "Ceres\\Widgets\\Presets\\ItemSearchPreset"
+            }
+        ],
+        "singleitem": [
             {
                 "label":"Widget.presetSingleItemDefault",
                 "presetClass": "Ceres\\Widgets\\Presets\\DefaultSingleItemPreset"
             }
+        ],
+        "itemset": [
+            {
+                "label":"Widget.presetItemSetDefault",
+                "presetClass": "Ceres\\Widgets\\Presets\\ItemSetPreset"
+            }
         ]
     },
     "dataFieldProviders": {
-        "singleitem": "Ceres\\ShopBuilder\\DataFieldProvider\\Item\\ItemDataFieldProvider"
+        "singleitem": "Ceres\\ShopBuilder\\DataFieldProvider\\Item\\ItemDataFieldProvider",
+        "itemset": "Ceres\\ShopBuilder\\DataFieldProvider\\Item\\ItemDataFieldProvider"
     },
     "categories": [
         {
@@ -189,6 +205,16 @@
             "key": "orderconfirmation",
             "label": "Widget.categoryOrderConfirmation",
             "position": 1200
+        },
+        {
+            "key": "categoryitem",
+            "label": "Widget.categoryCategoryItem",
+            "position": 1300
+        },
+        {
+            "key": "navigation",
+            "label": "Widget.categoryNavigation",
+            "position": 1400
         },
         {
             "key": "footer",
@@ -265,6 +291,22 @@
                     "isVisible": "!routing.myAccountCategory",
                     "options": {
                         "name": "Config.routingEnableRouteMyAccount"
+                    }
+                },
+                "searchCategory": {
+                    "type": "category",
+                    "required": false,
+                    "defaultValue": null,
+                    "options": {
+                        "name": "Config.routingCategoryItemSearch"
+                    }
+                },
+                "searchEnableRoute": {
+                    "type": "checkbox",
+                    "required": false,
+                    "isVisible": "!routing.searchCategory",
+                    "options": {
+                        "name": "Config.routingEnableRouteItemSearch"
                     }
                 },
                 "loginCategory": {
@@ -580,7 +622,10 @@
     },
     "globalSettingsHandler": "Ceres\\ShopBuilder\\Handler\\ShopBuilderSettingsHandler",
     "supportedFeatures": {
+        "categoryItemContent": true,
+        "itemSearchContent": true,
         "singleItemContent": true,
+        "itemSetContent": true,
         "globalElementsOverride": true,
         "safeMode" : true
     }

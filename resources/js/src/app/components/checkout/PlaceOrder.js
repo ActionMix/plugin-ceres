@@ -7,7 +7,7 @@ import { ButtonSizePropertyMixin } from "../../mixins/buttonSizeProperty.mixin";
 const ApiService = require("../../services/ApiService");
 const NotificationService = require("../../services/NotificationService");
 
-Vue.component("place-order", {
+export default Vue.component("place-order", {
 
     mixins: [ButtonSizePropertyMixin],
 
@@ -80,6 +80,7 @@ Vue.component("place-order", {
         ...mapState({
             checkoutValidation: state => state.checkout.validation,
             contactWish: state => state.checkout.contactWish,
+            customerSign: state => state.checkout.customerSign,
             isBasketLoading: state => state.basket.isBasketLoading,
             basketItemQuantity: state => state.basket.data.itemQuantity,
             isBasketInitiallyLoaded: state => state.basket.isBasketInitiallyLoaded,
@@ -96,6 +97,7 @@ Vue.component("place-order", {
             const url = "/rest/io/order/additional_information";
             const params = {
                 orderContactWish: this.contactWish,
+                orderCustomerSign: this.customerSign,
                 shippingPrivacyHintAccepted: this.shippingPrivacyHintAccepted,
                 newsletterSubscriptions: this.activeNewsletterSubscriptions
             };

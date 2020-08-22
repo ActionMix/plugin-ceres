@@ -131,7 +131,8 @@ class ShopWizardSettingsHandler implements WizardSettingsHandler
                 ];
                 foreach ($data as $dataKey => $dataValue) {
                     if (strpos($dataKey, "languages_browserLang_") !== false) {
-                        $key = end(explode("_", $dataKey));
+                        $exploded = explode("_", $dataKey);
+                        $key = end($exploded);
                         $globalData['browserLanguage'][$key] = $dataValue;
                     }
                 }
@@ -159,6 +160,10 @@ class ShopWizardSettingsHandler implements WizardSettingsHandler
                     if ($data['displayInfo_attributeSelectDefaultOption'] !== false) {
                         $webstoreData['attributeSelectDefaultOption'] = 1;
                     }
+                }
+
+                if (isset($data['seo_itemMetaTitle'])) {
+                    $webstoreData['urlTitleItemName'] = $data['seo_itemMetaTitle'];
                 }
 
                 $webstoreConfig->updateByPlentyId($webstoreData, $plentyId);

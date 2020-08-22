@@ -77,7 +77,7 @@ __webpack_require__.r(__webpack_exports__);
         "variation.weightG": "singleItemWeight",
         "variation.weightNetG": "singleItemNetWeight",
         "item.variationDimensions": "singleItemDimensions",
-        "item.customsTariffNumber": "singleItemCustomsTariffNumber"
+        "variation.customsTariffNumber": "singleItemCustomsTariffNumber"
       },
       formatMap: {
         "item.ageRestriction": {
@@ -98,6 +98,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     isCheckedAndNotEmpty: function isCheckedAndNotEmpty(path) {
       var _this = this;
+
+      if (path === "item.ageRestriction") {
+        // remove check for the age restriction to be greater than zero (0 means 'No age restriction')
+        return true;
+      }
 
       if (path !== "item.variationDimensions") {
         var value = lodash_get__WEBPACK_IMPORTED_MODULE_1___default()(this.currentVariation, path);

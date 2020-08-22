@@ -155,7 +155,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -1083,7 +1083,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "ul",
-                      { staticClass: "ml-3" },
+                      { staticClass: "ml-1 pl-3" },
                       _vm._l(_vm.basketItem.basketItemOrderParams, function(
                         property
                       ) {
@@ -1104,50 +1104,44 @@ var render = function() {
                             key: property.propertyId
                           },
                           [
-                            _c(
-                              "span",
-                              { staticClass: "d-block text-truncate" },
-                              [
-                                _c(
-                                  "strong",
-                                  {
-                                    class: { colon: property.type.length > 0 }
-                                  },
-                                  [
-                                    _vm._v(
-                                      _vm._s(property.name) +
-                                        " (" +
-                                        _vm._s(
-                                          _vm.$translate(
-                                            "Ceres::Template.basketIncludeAbbr"
+                            _c("span", { staticClass: "d-block" }, [
+                              _c(
+                                "strong",
+                                { class: { colon: property.type.length > 0 } },
+                                [
+                                  _vm._v(
+                                    _vm._s(property.name) +
+                                      " (" +
+                                      _vm._s(
+                                        _vm.$translate(
+                                          "Ceres::Template.basketIncludeAbbr"
+                                        )
+                                      ) +
+                                      " " +
+                                      _vm._s(
+                                        _vm._f("currency")(
+                                          _vm._f("propertySurcharge")(
+                                            _vm.basketItem.variation.data
+                                              .properties,
+                                            property.propertyId
                                           )
-                                        ) +
-                                        " " +
-                                        _vm._s(
-                                          _vm._f("currency")(
-                                            _vm._f("propertySurcharge")(
-                                              _vm.basketItem.variation.data
-                                                .properties,
-                                              property.propertyId
-                                            )
-                                          )
-                                        ) +
-                                        ")"
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "span",
-                                  [
-                                    _c("order-property-value", {
-                                      attrs: { property: property }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ]
-                            )
+                                        )
+                                      ) +
+                                      ")"
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                [
+                                  _c("order-property-value", {
+                                    attrs: { property: property }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
                           ]
                         )
                       }),
@@ -1472,7 +1466,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "ul",
-                { staticClass: "pl-3" },
+                { staticClass: "ml-1 pl-3" },
                 _vm._l(_vm.orderProperties, function(property) {
                   return _c(
                     "li",
@@ -1488,7 +1482,7 @@ var render = function() {
                       key: property.propertyId
                     },
                     [
-                      _c("span", { staticClass: "d-block text-truncate" }, [
+                      _c("span", { staticClass: "d-block" }, [
                         _c(
                           "strong",
                           { class: { colon: property.type.length > 0 } },

@@ -23,7 +23,10 @@
             <sup>*</sup>
         </span>
 
-        <div class="base-price text-muted my-3" v-if="currentVariation.unit">
+        <!-- class .is-single-piece is added for customers to hide the unit if it is C62 -->
+        <div class="base-price text-muted my-3"
+            v-if="currentVariation.unit"
+            :class="{ 'is-single-piece': currentVariation.unit && currentVariation.unit.content === 1 && currentVariation.unit.unitOfMeasurement === 'C62' }">
             <div>
                 {{ $translate("Ceres::Template.singleItemContent") }}
                 <span>{{ currentVariation.unit.content | numberFormat }} </span>
@@ -81,7 +84,7 @@ export default {
 
         showDynamicPrice() {
             const state = this.$store.state.items[this.itemId];
-            return App.config.item.showPleaseSelect
+            return App.config.item.showPleaseSelect && App.isCheapestSorting
                 && (state.variationSelect && !state.variationSelect.isVariationSelected)
                 && (state.pleaseSelectVariationId === this.currentVariation.variation.id
                     || state.pleaseSelectVariationId === 0);

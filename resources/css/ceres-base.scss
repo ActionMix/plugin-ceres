@@ -9098,6 +9098,10 @@ button:focus {
     overflow-x: hidden;
 }
 
+a {
+    overflow-wrap: break-word;
+}
+
 .lozad {
     display: block;
     min-height: 1px;
@@ -9433,7 +9437,17 @@ html.ie .always-visible-search { // stylelint-disable-line selector-no-qualifyin
         -o-object-fit: contain;
            object-fit: contain;
         height: 100%;
+    }
+}
 
+/* FIX rounding issue Card:115218 */
+.single-carousel {
+    .owl-item {
+        img {
+            width: 101%;
+            height: 101%;
+            margin-left: -1px;
+        }
     }
 }
 
@@ -9774,7 +9788,7 @@ html.ie {
 
 
 // Components
-.alert {
+.notification-wrapper .alert {
     @include media-breakpoint-up(sm) {
         width: 400px;
     }
@@ -10100,7 +10114,7 @@ html.ie {
     position: fixed;
     top: 10rem;
     right: .5rem;
-    z-index: $zindex-10;
+    z-index: $zindex-10 + 1;
 
     @include media-breakpoint-down(xs) {
         right: auto;
@@ -10120,6 +10134,11 @@ html.ie {
 }
 
 .popover {
+    &.hidden {
+        pointer-events: none;
+        visibility: hidden;
+    }
+
     &.popover-md {
         width: $popover-max-width-md;
         max-width: $popover-max-width-md;
@@ -10170,7 +10189,7 @@ $border-width: 1px;
 
     & > textarea {
         overflow-y: auto;
-        white-space: normal;
+        white-space: pre-wrap;
     }
 
     & > label {
@@ -10594,7 +10613,7 @@ textarea.no-resize {
     right: 0;
     bottom: -17px;
     left: 0;
-    z-index: 1000;
+    z-index: $zindex-5;
     display: none;
     width: 94px;
     height: 50px;
@@ -10605,13 +10624,17 @@ textarea.no-resize {
     &:hover {
         opacity: 1;
     }
+
+    @include media-breakpoint-down(sm) {
+        display: none !important; // stylelint-disable-line declaration-no-important
+    }
 }
 
 .back-to-top {
     position: fixed;
     right: 2rem;
     bottom: 2rem;
-    z-index: 100;
+    z-index: $zindex-5;
     display: none;
     width: 40px;
     height: 42px;
@@ -10620,6 +10643,10 @@ textarea.no-resize {
 
     &:hover {
         opacity: 1;
+    }
+
+    @include media-breakpoint-down(sm) {
+        display: none !important; // stylelint-disable-line declaration-no-important
     }
 }
 
@@ -10962,6 +10989,13 @@ textarea.no-resize {
     }
 }
 
+html.safari .basket-preview-content .totals { // stylelint-disable-line selector-no-qualifying-type
+    display: block !important; // stylelint-disable-line declaration-no-important
+}
+html.ios .basket-preview-content .totals { // stylelint-disable-line selector-no-qualifying-type
+    display: block !important; // stylelint-disable-line declaration-no-important
+}
+
 .cmp-totals {
     dt,
     dd {
@@ -11259,6 +11293,9 @@ textarea.no-resize {
     @include border-radius(0 $border-radius $border-radius 0);
 
     .qty-btn {
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center; /* FF */
         background-color: $qty-box-bg;
         border: 1px solid $qty-box-border;
         -webkit-box-shadow: none;
@@ -11559,7 +11596,7 @@ html.crios {
     .filter-collapse {
         position: absolute;
         top: 100%;
-        z-index: $zindex-1;
+        z-index: $zindex-3 - 5;
         width: 100%;
         padding-right: 15px;
         margin-left: -15px;
@@ -12396,18 +12433,17 @@ html.ie .v-s-boxes .v-s-box.invalid { // stylelint-disable-line selector-no-qual
     }
 }
 
-.widget-grid .col-md-3,
-.widget-grid .col-lg-3,
-.widget-grid .col-md-4,
-.widget-grid .widget-grid {
-    .widget-filter-price {
-        .item-filter-price {
-            display: block;
-            text-align: right;
-        }
+@include media-breakpoint-down(md) {
+    .filter-collapse {
+        .widget-filter-price {
+            .item-filter-price {
+                display: block;
+                text-align: right;
+            }
 
-        .input-group {
-            margin-bottom: 1rem;
+            .input-group {
+                margin-bottom: 1rem;
+            }
         }
     }
 }
@@ -12533,6 +12569,14 @@ html.ie .v-s-boxes .v-s-box.invalid { // stylelint-disable-line selector-no-qual
             content: attr(data-translation-empty);
         }
     }
+
+    .collapse-container {
+        .widget-grid {
+            -webkit-column-span: all;
+               -moz-column-span: all;
+                    column-span: all;
+        }
+    }
 }
 
 .widget-provider-select {
@@ -12548,11 +12592,8 @@ html.ie .v-s-boxes .v-s-box.invalid { // stylelint-disable-line selector-no-qual
 
 .widget-background {
 
-    > div:first-child {
-        z-index: 0;
-    }
-
     > .container-max {
+        position: relative;
         padding-right: 0;
         padding-left: 0;
     }
@@ -12585,7 +12626,6 @@ html.ie .v-s-boxes .v-s-box.invalid { // stylelint-disable-line selector-no-qual
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: -1;
         height: 100% !important; // stylelint-disable-line declaration-no-important
         background-repeat: no-repeat;
         background-position: center !important; // stylelint-disable-line declaration-no-important
@@ -12623,12 +12663,10 @@ html.ie .v-s-boxes .v-s-box.invalid { // stylelint-disable-line selector-no-qual
 
 .widget-accordion {
     .card {
-        &:first-of-type {
-            border-bottom: $card-border-width solid $card-border-color;
-        }
+        border-bottom: 0;
 
-        &:nth-of-type(2) {
-            border-top: 0;
+        &:last-child {
+            border-bottom: $card-border-width solid $card-border-color;
         }
 
         button {
@@ -13132,6 +13170,8 @@ html.ie {
 }
 
 .widget-item-list-caption {
+    word-wrap: break-word;
+
     h1,
     h2,
     h3,
@@ -13156,6 +13196,30 @@ html.ie {
         padding-top: .4rem;
         padding-bottom: .1rem;
         font-size: 1.5rem;
+    }
+
+    @include media-breakpoint-down(sm) {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: inherit !important;
+            -ms-flex-align: inherit !important;
+                align-items: inherit !important; // stylelint-disable-line declaration-no-important
+
+        h1 {
+            font-size: 1.4rem;
+        }
+        h2 {
+            font-size: 1.2rem;
+        }
+        h3 {
+            font-size: 1rem;
+        }
+
+        a:last-child {
+            margin-bottom: 5px;
+        }
     }
 
     .widget-item-list-inline-caption * {
@@ -13306,6 +13370,11 @@ html.ie {
 
 html.ie .widget-grid .widget-inner-stacked { // stylelint-disable-line selector-no-qualifying-type
     display: block;
+}
+
+html.safari .widget-grid .widget-inner-stacked .widget-inner { // stylelint-disable-line selector-no-qualifying-type
+    -ms-flex-preferred-size: auto !important;
+        flex-basis: auto !important; // stylelint-disable-line declaration-no-important
 }
 
 .nav-link.text-appearance.active {
@@ -14087,6 +14156,10 @@ html.safari { // stylelint-disable-next-line selector-no-qualifying-type
             min-width: inherit;
             max-width: 1170px;
         }
+    }
+
+    .widget-code.is-safe-mode {
+        max-height: 120px;
     }
 }
 

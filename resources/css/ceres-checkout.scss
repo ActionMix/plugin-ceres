@@ -10169,6 +10169,10 @@ html.ie {
     pointer-events: none;
 }
 
+.sticky-element {
+    padding-bottom: .1px; // force disable margin collapse
+}
+
 .sticky-element.is-sticky {
     z-index: $zindex-sticky !important; // stylelint-disable-line declaration-no-important
 }
@@ -13278,6 +13282,10 @@ html.ie {
 }
 
 .widget-text {
+    &.widget {
+        margin-bottom: 0;
+    }
+
     .widget-inner {
         padding: 1rem 1.5rem;
     }
@@ -14570,27 +14578,6 @@ header .widget {
         width: 300px;
     }
 
-    .item-name {
-        display: -webkit-box; // stylelint-disable-line value-no-vendor-prefix
-        max-height: 3em;
-        margin-bottom: .25rem;
-        overflow: hidden;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical; // stylelint-disable-line property-no-vendor-prefix
-
-        &::after {
-            position: absolute;
-            right: .25em;
-            bottom: 0;
-            display: inline-block;
-            height: 50%;
-            content: "…";
-            background-color: $white;
-        }
-    }
-
     .item-total-price {
         font-size: 1.5em;
         font-weight: 700;
@@ -15247,6 +15234,12 @@ header .widget {
     }
 }
 
+.confirmation-order-list {
+    .item-name {
+        max-height: none !important; // stylelint-disable-line declaration-no-important
+    }
+}
+
 /* Compatibility for IE */
 // stylelint-disable
 html.ie .confirmation-order-list .cmp-order-item {
@@ -15390,6 +15383,12 @@ html.ie .confirmation-order-list .cmp-order-item {
         .icon {
             display: inline-block;
             vertical-align: middle;
+
+            // fix image proportions for safari of the payment/shipping icons
+            > img {
+                -o-object-fit: contain;
+                   object-fit: contain;
+            }
         }
 
         .content {
